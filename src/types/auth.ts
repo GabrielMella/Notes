@@ -1,8 +1,11 @@
-export interface Auth {
+export interface AuthRequest {
     email: string,
     password: string
 }
 
 export interface AuthResponse {
-    token: string
+    data: {
+        access_token: string,
+        token_type: string
+    }
 }

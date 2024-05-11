@@ -1,19 +1,19 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-type State = {
-    token: string
+type Store = {
+    token: string,
 }
 type Actions = {
-    setToken: (token: string) => void
+    setToken: (token: string) => void,
 }
 
-export const useAuthStore = create(persist<State & Actions>(
+
+export const useAuthStore = create<Store & Actions>()(
+    persist(
     (set) => ({
         token: "",
-        setToken: (token: string) => set((state) => ({
-            token
-        }))
+        setToken: (token) => set((state) => ({ token })),
     }), {
         name: 'auth'
     }

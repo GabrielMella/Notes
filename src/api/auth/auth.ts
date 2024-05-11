@@ -1,9 +1,10 @@
 import axios from 'axios'
-import { Auth, AuthResponse } from '../../types/auth'
+import { AuthRequest, AuthResponse } from '_types/auth'
 
-export const loginRequest = async (credentials: Auth) => {
+export async function loginRequest(credentials: AuthRequest) {
  
-    //axios.post<AuthResponse, AuthResponse>('http://localhost:8080/login', credentials)
+    const response = await axios.post<AuthResponse, AuthResponse>('http://localhost:8080/login', credentials);
+    console.log(response.data);
 
-    return {token: 'tokenTeste'}
+    return response.data;
 }
