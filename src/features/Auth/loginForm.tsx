@@ -18,6 +18,7 @@ import {
     Box,
     Spinner
 } from '@chakra-ui/react'
+import PageContainer from "_components/Layout";
 
 
 const schemmaLogin = z.object({
@@ -65,37 +66,38 @@ const LoginForm = () => {
     }
 
     return(
-        <form id="form-login" onSubmit={handleSubmit(aoSubmeter)}>
-            <FormControl>
-                <FormLabel>Email address</FormLabel>
-                <Input 
-                    type='email' 
-                    autoComplete="email"
-                    isInvalid={!!errors.email}
-                    {...register('email')}
-                />
-                {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-            </FormControl>
+        <PageContainer>
+            <form id="form-login" onSubmit={handleSubmit(aoSubmeter)}>
+                <FormControl>
+                    <FormLabel>Email address</FormLabel>
+                    <Input 
+                        type='email' 
+                        autoComplete="email"
+                        isInvalid={!!errors.email}
+                        {...register('email')}
+                    />
+                    {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+                </FormControl>
 
-            <FormControl>
-                <FormLabel>Password</FormLabel>
-                <Input 
-                    type='password'
-                    isInvalid={!!errors.password}
-                    {...register('password')}
-                />
-                {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
-            </FormControl>
+                <FormControl>
+                    <FormLabel>Password</FormLabel>
+                    <Input 
+                        type='password'
+                        isInvalid={!!errors.password}
+                        {...register('password')}
+                    />
+                    {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+                </FormControl>
 
-            <Box display="flex" alignItems="center" justifyContent="center" p={5}>
-                {isLoading ? (
-                    <Spinner />
-                ) : (
-                    <Button type="submit" colorScheme='blue'>Sign up</Button>
-                )}
-            </Box>
-
-        </form>
+                <Box display="flex" alignItems="center" justifyContent="center" p={5}>
+                    {isLoading ? (
+                        <Spinner />
+                    ) : (
+                        <Button type="submit" colorScheme='blue'>Sign in</Button>
+                    )}
+                </Box>
+            </form>
+        </PageContainer>
     )
 }
 export default LoginForm;

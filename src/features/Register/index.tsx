@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { atom, useAtom } from 'jotai';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
     Input,
     Button
 } from '@chakra-ui/react'
+import PageContainer from "_components/Layout";
 
 const schemmaRegister = z.object({
     name: z.string().min(4, 'Minimo de 4 caracteres'),
@@ -21,6 +22,8 @@ const schemmaRegister = z.object({
 })
 
 type FormRegister = z.infer<typeof schemmaRegister>;
+
+const loader = atom(false);
 
 const RegisterPage = () => {
 
@@ -37,7 +40,7 @@ const RegisterPage = () => {
         }
     });
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useAtom(loader);
     const navigate = useNavigate();
     const toast = useToast();
 
@@ -72,49 +75,49 @@ const RegisterPage = () => {
     }
 
     return(
-        <form id="form-register" onSubmit={handleSubmit(aoSubmeter)}>
-            <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input 
-                    type='text' 
-                    autoComplete="name"
-                    isInvalid={!!errors.name}
-                    {...register('name')}
-                />
-                {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-            </FormControl>
+        <PageContainer>
+            <form id="form-register" onSubmit={handleSubmit(aoSubmeter)}>
+                <FormControl>
+                    <FormLabel>Name</FormLabel>
+                    <Input 
+                        type='text' 
+                        autoComplete="name"
+                        isInvalid={!!errors.name}
+                        {...register('name')}
+                    />
+                    {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+                </FormControl>
 
-            <FormControl>
-                <FormLabel>Email address</FormLabel>
-                <Input 
-                    type='email' 
-                    autoComplete="email"
-                    isInvalid={!!errors.email}
-                    {...register('email')}
-                />
-                {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-            </FormControl>
+                <FormControl>
+                    <FormLabel>Email address</FormLabel>
+                    <Input 
+                        type='email' 
+                        autoComplete="email"
+                        isInvalid={!!errors.email}
+                        {...register('email')}
+                    />
+                    {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+                </FormControl>
 
-            <FormControl>
-                <FormLabel>Password</FormLabel>
-                <Input 
-                    type='password'
-                    isInvalid={!!errors.password}
-                    {...register('password')}
-                />
-                {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
-            </FormControl>
+                <FormControl>
+                    <FormLabel>Password</FormLabel>
+                    <Input 
+                        type='password'
+                        isInvalid={!!errors.password}
+                        {...register('password')}
+                    />
+                    {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+                </FormControl>
 
-            <Box display="flex" alignItems="center" justifyContent="center" p={5}>
-                {isLoading ? (
-                    <Spinner />
-                ) : (
-                    <Button type="submit" colorScheme='blue'>Sign in</Button>
-                )}
-            </Box>
-            
-           
-        </form>
+                <Box display="flex" alignItems="center" justifyContent="center" p={5}>
+                    {isLoading ? (
+                        <Spinner />
+                    ) : (
+                        <Button type="submit" colorScheme='blue'>Sign up</Button>
+                    )}
+                </Box>
+            </form>
+        </PageContainer>
     )
 }
 export default RegisterPage;

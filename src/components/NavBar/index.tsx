@@ -1,76 +1,70 @@
+import { useAuthStore } from '_store/auth';
 import {
   Flex,
-  Container,
-  Image,
-  Stack,
+  Box,
   Text,
   Button,
   Menu,
-  MenuItem,
-  MenuDivider,
-  MenuGroup,
-  MenuList,
   MenuButton,
+  MenuList,
+  MenuItem,
 } from '@chakra-ui/react';
 
-export default function Nav() {
+export const NavBar = () => {
+  const setToken = useAuthStore(state => state.setToken);
+
+  const handleLogout = () => {
+    setToken('');
+  };
+
   return (
-    <Flex>
-      <Container>
-        <Stack
-          direction={["column", "row"]}
-          alignItems={["flex-end", "center"]}
-        >
-          <Image
-            boxSize="54px"
-            fallbackSrc="https://user-images.githubusercontent.com/10295466/95871054-e472de00-0d75-11eb-93f4-2593ce275869.png"
-          />
-          <Text fontSize="xl" fontWeight="500">
-            Awesome app
-          </Text>
-          <Stack direction={["column", "row"]} style={{ marginLeft: "5rem" }}>
-            <Button colorScheme="navItem" variant="ghost">
-              Dashboard
-            </Button>
-            <Menu>
-              <MenuButton
-                as={Button}
-                colorScheme="navItem"
-                variant="ghost"
-              >
-                Users
-              </MenuButton>
-              <MenuList>
-                <MenuItem>View All</MenuItem>
-                <MenuDivider />
-                <MenuItem>Add New</MenuItem>
-              </MenuList>
-            </Menu>
-          </Stack>
-          <Stack direction={["column", "row"]} style={{ marginLeft: "auto" }}>
-            <Menu>
-              <MenuButton
-                as={Button}
-                colorScheme="navItem"
-                variant="ghost"
-              >
-                Settings
-              </MenuButton>
-              <MenuList>
-                <MenuGroup title="Profile">
-                  <MenuItem>My Account</MenuItem>
-                  <MenuItem>Payments </MenuItem>
-                </MenuGroup>
-                <MenuDivider />
-                <MenuGroup title="Help">
-                  <MenuItem>Docs</MenuItem>
-                  <MenuItem>FAQ</MenuItem>
-                </MenuGroup>
-              </MenuList>
-            </Menu>
-          </Stack>
-        </Stack>
-      </Container>
+    <Flex
+      as="nav"
+      align="center"
+      justify="space-between"
+      wrap="wrap"
+      padding="1rem"
+      bg="blue.500"
+      color="white"
+    >
+      <Flex align="center" mr={5}>
+        <Text fontSize="xl" fontWeight="bold">
+          Notes
+        </Text>
+      </Flex>
+
+      <Box display={{ base: 'block', md: 'none' }}>
+        {/* Adicione um ícone de menu para dispositivos móveis, se necessário */}
+      </Box>
+
+      <Box
+        display={{ base: 'none', md: 'flex' }}
+        width={{ base: 'full', md: 'auto' }}
+        alignItems="center"
+        flexGrow={1}
+      >
+        <Button variant="ghost" onClick={handleLogout}>
+          Logout
+        </Button>
+        <Menu>
+          <MenuButton as={Button} variant="ghost">
+            Settings
+          </MenuButton>
+          <MenuList>
+            <MenuItem>My Account</MenuItem>
+            <MenuItem>Payments</MenuItem>
+            <MenuItem onClick={() => console.log('Help clicked')}>Help</MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
+
+      <Box
+        display={{ base: 'none', md: 'flex' }}
+        width={{ base: 'full', md: 'auto' }}
+        alignItems="center"
+      >
+
+      </Box>
     </Flex>
   );
-}
+};

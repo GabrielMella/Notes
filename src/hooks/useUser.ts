@@ -8,7 +8,7 @@ export default function useUser() {
   const { setUser } = useUserStore();
 
   const { data, error, mutate } = useSWR(
-    token ? `${process.env.REACT_APP_BACKEND}/me` : null,
+    token ? `http://localhost:8080/me` : null,
     url =>
       fetch(url, {
         method: 'GET',

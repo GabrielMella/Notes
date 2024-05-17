@@ -1,13 +1,8 @@
-import { RouteList } from './routes/routes';
-import Navbar from './components/NavBar';
-import Footer from './components/Footer';
-import PageContainer from './components/Layout';
+import { RouteList } from '_routes/routes';
 
 function App() {
   return (
-      <PageContainer>       
-        <RouteList />
-      </PageContainer>
+      <RouteList />
   );
 }
 
