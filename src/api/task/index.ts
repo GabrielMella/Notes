@@ -23,6 +23,18 @@ export async function deleteTaskRequest(id: string, token: string) {
         }
     }
  
-    const response = await axios.delete<CreateTaskResponse, CreateTaskResponse>(`http://localhost:8080/task/${id}`, config);
+    const response = await axios.delete<CreateTaskResponse, CreateTaskResponse>(`http://localhost:8080/task/${id}`,config);
     return response;
 }
+
+export async function taskCompletedRequest(id: string, token: string) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+ 
+    const response = await axios.put(`http://localhost:8080/task/${id}`, null,config);
+    return response;
+}
+

@@ -1,4 +1,5 @@
-import { KeyedMutator } from "swr";
+import { schemmaRegisterTask } from "src/schemmas/Task";
+import { z } from "zod";
 
 export interface CreateTaskRequest {
     title: string,
@@ -13,12 +14,34 @@ export interface CreateTaskResponse {
 }
 
 export interface FetchTaskResponse {
+    id: string;
     title: string;
     description: string;
+    status: boolean
 }
 
-export interface useTaskResponse {
-    data: FetchTaskResponse | [];
-    error: any;
-    mutate: KeyedMutator<FetchTaskResponse>;
+export interface OldTask {
+    id: string;
+    title: string;
+    description: string;
+    status: boolean
 }
+
+export interface TaskApiResponse {
+    currentPage: number;
+    data: FetchTaskResponse[];
+    firstPageUrl: string;
+    from: number;
+    lastPage: number;
+    lastPageUrl: string;
+    links: any[];
+    nextPageUrl: string | null;
+    path: string;
+    perPage: number;
+    prevPageUrl: string | null;
+    to: number;
+    total: number;
+}
+
+export type FormRegister = z.infer<typeof schemmaRegisterTask>;
+
